@@ -1,0 +1,8 @@
+if we read a variable without proper synchronization, we may see a stale value. 
+For long and double values, quite surprisingly, it's even possible to see completely random values in addition to stale ones.
+
+According to JLS-17, JVM may treat 64-bit operations as two separate 32-bit operations. 
+Therefore, when reading a long or double value, it's possible to read an updated 32-bit along with a stale 32-bit. 
+
+Consequently, we may observe random-looking long or double values in concurrent contexts.
+On the other hand, writes and reads of volatile long and double values are always atomic.
