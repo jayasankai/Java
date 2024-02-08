@@ -9,6 +9,8 @@
 		<module>kafka-basics</module>
 		<module>kafka-producer-wikimedia</module>
 		<module>kafka-consumer-opensearch</module>
+		<module>wikimedia-kafka-producer</module>
+		<module>opensearch-kafka-consumer</module>
 	</modules>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
