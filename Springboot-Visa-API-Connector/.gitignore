@@ -1,5 +1,6 @@
 HELP.md
-target/
+!/target/*.jar
+/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -22,7 +23,6 @@ target/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
 /nbdist/
 /.nb-gradle/
 build/
@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-.DS_Store
+**/.DS_Store
