@@ -11,7 +11,7 @@ import com.jay.visa.api.connector.service.VisaApiServiceImpl;
  * This class handles REST API calls which related to Visa APIs.
  * 
  * Service layer handle the authentication and returns validated responses.
- * TODO: pending to add Validations
+ * TODO: pending to add request layer validations
  */
 @RestController
 public class RestApiConnector {
