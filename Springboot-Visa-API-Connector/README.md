@@ -18,7 +18,7 @@ Improvements:
 	3. Files (Private key and other security files) should be stored in secure repository or byte stream in DB
 	
 Note:
- as of now I am getting bellow response from the service.
+ as of now this application is getting bellow response from the service.
  {
     "responseStatus": {
         "status": 403,
@@ -28,5 +28,8 @@ Note:
         "info": ""
     }
  }
+ 
+ I've tested this service via Postman and also SOAP UI. Both clients are getting same error.
  So I assumed, Visa service is having some issue while responding to client.
+ 
  
