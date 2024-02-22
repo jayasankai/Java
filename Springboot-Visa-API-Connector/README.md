@@ -1,4 +1,10 @@
 <pre>
+<b>How to use application</b>
+  Run application:
+  > java -jar ./dist/visa.api.connector-0.0.1-SNAPSHOT.jar
+  > test via postman 
+  	url : https://localhost:8085/vdp/helloworld
+
 <b>Assumptions:</b>
   This spring-boot application implemented as a REST client where anyone can call API to retrieve data. 
   Which means application has less security and less validations.
