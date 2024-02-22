@@ -24,6 +24,9 @@ import org.springframework.stereotype.Service;
 
 import com.jay.visa.api.connector.exception.ApiException;
 
+/**
+ * This Service Class is used to handle Visa API Services
+ */
 @Service
 public class VisaApiServiceImpl implements VisaApiService {
 
@@ -45,8 +48,20 @@ public class VisaApiServiceImpl implements VisaApiService {
 	@Value("${visa.service.uri}")
 	private String visaServiceUri;
 
+	/**
+	 * Handle API request for Hello World
+	 * 
+	 * Returns : Response
+	 * Throws : API Exception 
+	 * 
+	 * TODO: 
+	 *  1. pending to add Validations as per the business logics
+	 *  2. User IDs and passwords should be retrieved from DB layer
+	 *  3. Files (Private key and other security files) should be stored in secure repository or byte stream in DB
+	 * 
+	 */
 	@Override
-	public String visaApiHelloWorld() throws ApiException {
+	public String visaApiHelloWorld() {
 		try {
 
 			// Load client certificate into key store
