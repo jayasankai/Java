@@ -1,5 +1,5 @@
 Assumptions:
-  This spring-boot application implemented as a REST client where anyone can call API to retreive data. 
+  This spring-boot application implemented as a REST client where anyone can call API to retrieve data. 
   Which means application has less security and less validations.
   Here I assumed this application is hosted in de-militarized zone where APIs can access by other services within the same private subnet.
 
