@@ -16,3 +16,17 @@ Improvements:
    	1. pending to add Validations as per the business logics
 	2. User IDs and passwords should be retrieved from DB layer
 	3. Files (Private key and other security files) should be stored in secure repository or byte stream in DB
+	
+Note:
+ as of now I am getting bellow response from the service.
+ {
+    "responseStatus": {
+        "status": 403,
+        "code": "9611",
+        "severity": "ERROR",
+        "message": "Authorization Failed for the URL.",
+        "info": ""
+    }
+ }
+ So I assumed, Visa service is having some issue while responding to client.
+ 
