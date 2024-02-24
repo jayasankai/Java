@@ -24,7 +24,12 @@
 	2. User IDs and passwords should be retrieved from DB layer
 	3. Files (Private key and other security files) should be stored in secure repository or byte stream in DB
 	
-<b>Note:</b>
+	
+<b>Note: 20240224</b>
+Client Application was able get the "helloworld" response from API after re-generating new set of keys in new API project.
+ 
+ 
+<b>Note: 20240222</b>
  as of now this application is getting bellow response from the service.
  {
     "responseStatus": {
