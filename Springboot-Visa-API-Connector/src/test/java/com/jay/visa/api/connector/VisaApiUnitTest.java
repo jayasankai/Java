@@ -17,8 +17,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jay.visa.api.connector.service.VisaApiService;
 
+/**
+ * Unit tests for API module
+ */
 @SpringBootTest
-public class VisaApiTest {
+public class VisaApiUnitTest {
 	
 	@Autowired
 	VisaApiService apiService;
@@ -26,14 +29,14 @@ public class VisaApiTest {
 	CloseableHttpClient httpClient = mock(CloseableHttpClient.class);
 	
 	@Test
-	void contextLoads() throws ClientProtocolException, IOException {
+	void visaApiConnectorTest() throws ClientProtocolException, IOException {
 		
 		CloseableHttpResponse response = mock(CloseableHttpResponse.class);
 		HttpEntity entity = mock(HttpEntity.class);
 	    when(httpClient.execute(Mockito.any(HttpGet.class))).thenReturn(response);
 	    when(response.getEntity()).thenReturn(entity);
 	    
-		apiService.visaApiHelloWorld();
+	    apiService.visaApiHelloWorld();
 		
 	}
 
