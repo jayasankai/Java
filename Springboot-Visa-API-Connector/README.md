@@ -27,7 +27,9 @@
 	
 <b>Note: 20240224</b>
 Client Application was able get the "helloworld" response from API after re-generating new set of keys in new API project.
- 
+See bellow link for more details.
+Link : https://community.developer.visa.com/t5/Two-way-SSL-X-Pay-Token/9611-Error-Hello-World-Example/m-p/23771
+
  
 <b>Note: 20240222</b>
  as of now this application is getting bellow response from the service.
