@@ -19,6 +19,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,8 @@ import com.jay.visa.api.connector.exception.ApiException;
  */
 @Service
 public class VisaApiServiceImpl implements VisaApiService {
+	
+	private Logger logger = LoggerFactory.getLogger(VisaApiServiceImpl.class);
 
 	@Value("${visa.client.ssl.trust-store}")
 	private String keyStorePath;
@@ -62,9 +66,10 @@ public class VisaApiServiceImpl implements VisaApiService {
 	 */
 	@Override
 	public String visaApiHelloWorld() {
+		logger.info("Calling Visa API for Hello World");
+		
 		try {
-
-			// Load client certificate into key store
+			logger.info("Load client certificate into key store");
 			SSLContext sslcontext;
 			try {
 				sslcontext = SSLContexts.custom()
@@ -73,28 +78,34 @@ public class VisaApiServiceImpl implements VisaApiService {
 						.loadTrustMaterial(new File(keyStorePath), keyStorePassword.toCharArray()).build();
 			} catch (KeyManagementException | UnrecoverableKeyException | NoSuchAlgorithmException | KeyStoreException
 					| CertificateException e) {
+				logger.error("Exception :: SSL key Store. Exception message :: {}", e.getMessage());
 				throw new ApiException("Exception :: SSL key Store");
 			}
 
-			// Allow TLSv1.2 protocol only
+			logger.info("Allow TLSv1.2 protocol only");
 			SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslcontext,
 					new String[] { "TLSv1.2" }, null, SSLConnectionSocketFactory.getDefaultHostnameVerifier());
 
 			CloseableHttpClient httpClient = HttpClients.custom().setSSLSocketFactory(sslSocketFactory).build();
 
+			logger.info("Set basic authentication for {} url", visaServiceUri);
 			HttpGet httpGet = new HttpGet(visaServiceUri + "/vdp/helloworld");
 			httpGet.setHeader("Authorization", getBasicAuthenticationHeader(clientUserId, clientUserPassword));
 			
+			logger.info("Calling http '/vdp/helloworld' request");
 			try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
 				HttpEntity entity = response.getEntity();
 
 				String responseString = EntityUtils.toString(entity, "UTF-8");
 				EntityUtils.consume(entity);
 
+				logger.info("Response received for '/vdp/helloworld' ");
+				logger.debug("Response: {}", responseString);
 				return responseString;
 			}
 
 		} catch (IOException e) {
+			logger.error("Exception :: API service exception!. Exception message :: {}", e.getMessage());
 			throw new ApiException("Exception :: API service exception!");
 		}
 	}
