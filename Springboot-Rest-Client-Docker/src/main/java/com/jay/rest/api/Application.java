@@ -1,4 +1,4 @@
-package com.jayasanka.rest;
+package com.jay.rest.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

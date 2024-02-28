@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-api-service-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: restapi
+  template:
+    metadata:
+      labels:
+        app: restapi
+    spec:
+      containers:
+        - name: spring-rest
+          image: jayasanka/spring-rest:1.0
