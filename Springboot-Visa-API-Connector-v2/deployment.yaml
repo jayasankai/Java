@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visa.api.connector-v2-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: visa-api-connector-v2
+  template:
+    metadata:
+      labels:
+        app: visa-api-connector-v2
+    spec:
+      containers:
+        - name: visa-api-connector-v2
+          image: jayasanka/visa-api-connector-v2:2.0
+          env:
+            - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
+              value: /usr/local/certs/visaApiConnector_keyAndCertBundle.jks
+          volumeMounts: 
+            - mountPath: /usr/local/certs
+              name: certs
+            - mountPath: /usr/local/logs
+              name: logs
+      volumes:
+        - name: certs
+          emptyDir: {}
+        - name: logs
+          emptyDir: {}
