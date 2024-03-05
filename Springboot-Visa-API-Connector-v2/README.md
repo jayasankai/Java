@@ -33,7 +33,7 @@ commands:
 	
 ### Dockerization
 commands:
-- mvn clean install -DskipTests 
+- mvn clean install -DskipTests
 - docker build -t jayasanka/visa-api-connector-v2:1.0 .
 - docker push jayasanka/visa-api-connector-v2:1.0
 - docker-compose up
@@ -45,6 +45,8 @@ commands:
 - minikube dashboard
 - kubectl apply -f service.yaml -f deployment.yaml 
 - kubectl delete -f service.yaml -f deployment.yaml 
+- kubectl describe pod {POD Name}
+- kubectl logs -p {POD Name}
 	
 ### Note: 20240224
 Client Application was able get the "helloworld" response from API after re-generating new set of keys in new API project.<br>

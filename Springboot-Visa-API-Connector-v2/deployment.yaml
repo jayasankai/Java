@@ -17,14 +17,18 @@ spec:
           image: jayasanka/visa-api-connector-v2:2.0
           env:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
-              value: /usr/local/certs/visaApiConnector_keyAndCertBundle.jks
+              value: /data/certs/visaApiConnector_keyAndCertBundle.jks
           volumeMounts: 
-            - mountPath: /usr/local/certs
-              name: certs
-            - mountPath: /usr/local/logs
-              name: logs
+            - mountPath: /data/certs
+              name: certs-volume
+            - mountPath: /data/logs
+              name: logs-volume
       volumes:
-        - name: certs
-          emptyDir: {}
-        - name: logs
-          emptyDir: {}
+        - name: certs-volume
+          hostPath:
+            path: /data/certs
+            type: DirectoryOrCreate
+        - name: logs-volume
+          hostPath:
+            path: /data/logs
+            type: DirectoryOrCreate

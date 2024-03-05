@@ -9,10 +9,11 @@ RUN mvn -f pom.xml clean package -DskipTests
 
 # Run stage
 FROM openjdk:17
-RUN mkdir -p /usr/local/certs
+RUN mkdir -p /data/certs
+RUN mkdir -p /data/logs
 COPY --from=build /home/app/target/visa.api.connector-v2-0.0.1.jar /usr/local/lib/visa.api.connector-v2-0.0.1.jar
-COPY --from=build /home/app/certs /usr/local/certs
-RUN cd /usr/local/certs/ && \
+COPY --from=build /home/app/certs /data/certs
+RUN cd /data/certs/ && \
 	keytool -delete -alias ejbca -keystore visaApiConnector_keyAndCertBundle.jks -storepass k62nN5m7WELp35q88vvAU1fvcX -noprompt && \
 	keytool -delete -alias digicert -keystore visaApiConnector_keyAndCertBundle.jks -storepass k62nN5m7WELp35q88vvAU1fvcX -noprompt && \
 	keytool -import -alias ejbca -keystore visaApiConnector_keyAndCertBundle.jks -file VDPCA-SBX.pem -storepass k62nN5m7WELp35q88vvAU1fvcX -noprompt && \
