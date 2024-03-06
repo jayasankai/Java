@@ -16,29 +16,26 @@ spec:
         - name: visa-api-connector-v2
           image: jayasanka/visa-api-connector-v2:1.0
           imagePullPolicy: Always
-#          command: ["/bin/sh", "-c", "ls -la /data/certs/"]
-#          args: ["ls -la /data/certs/", cp -R /data/certs/* /data/certs/"]
           env:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
-              value: /data/certs/visaApiConnector_keyAndCertBundle.jks
+              value: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
           volumeMounts:
             - name: logs-dir-volume
-              mountPath: /data/logs
-            - name: certs-dir-volume
-              mountPath: /data/certs
+              mountPath: /var/local/logs
             - name: certs-file-volume
-              mountPath: /data/certs/visaApiConnector_keyAndCertBundle.jks
+              mountPath: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
+              subPath: visaApiConnector_keyAndCertBundle.jks
+          command: ["/bin/sh", "-c", "ls -la /var/local/certs/"]
+#          args: ["ls -la /var/local/certs/", cp -R /var/local/certs/* /data/certs/"]
       volumes:
         - name: certs-dir-volume
           hostPath:
-            path: /data/certs
+            path: /var/local/certs
             type: DirectoryOrCreate
         - name: certs-file-volume
           hostPath:
-            path: /data/certs/visaApiConnector_keyAndCertBundle.jks
-            type: FileOrCreate
+            path: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
+            type: File
         - name: logs-dir-volume
-          hostPath:
-            path: /data/logs
-            type: DirectoryOrCreate
+          emptyDir: {}
               
