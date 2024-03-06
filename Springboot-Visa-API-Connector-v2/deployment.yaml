@@ -12,6 +12,13 @@ spec:
       labels:
         app: visa-api-connector-v2
     spec:
+      initContainers:
+        - name: init-visa-api-connector-v2
+          image: jayasanka/visa-api-connector-v2:1.0
+          command: ["/bin/sh", "-c", "cp -R /data/certs/* /data/certs/"]
+          volumeMounts:
+            - name: certs-volume
+              mountPath: /data/certs
       containers:
         - name: visa-api-connector-v2
           image: jayasanka/visa-api-connector-v2:1.0
@@ -19,22 +26,13 @@ spec:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
               value: /data/certs/visaApiConnector_keyAndCertBundle.jks
           volumeMounts:
-            - name: certs-volume
-              mountPath: /data/certs
-            - name: certs
-              mountPath: /data/certs/visaApiConnector_keyAndCertBundle.jks
-              subPath: visaApiConnector_keyAndCertBundle.jks
             - name: logs-volume
               mountPath: /data/logs
       volumes:
         - name: certs-volume
           hostPath:
-            path: /data/certs/
+            path: /data/certs
             type: DirectoryOrCreate
-        - name: certs
-          hostPath:
-            path: /data/certs/visaApiConnector_keyAndCertBundle.jks
-            type: File
         - name: logs-volume
           hostPath:
             path: /data/logs
