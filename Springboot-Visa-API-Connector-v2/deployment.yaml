@@ -15,20 +15,30 @@ spec:
       containers:
         - name: visa-api-connector-v2
           image: jayasanka/visa-api-connector-v2:1.0
-          command: ["/bin/sh", "-c"]
-          args: ["mkdir -p /data/certs/", "cp -R /data/certs/* /data/certs/"]
+          imagePullPolicy: Always
+#          command: ["/bin/sh", "-c", "ls -la /data/certs/"]
+#          args: ["ls -la /data/certs/", cp -R /data/certs/* /data/certs/"]
           env:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
               value: /data/certs/visaApiConnector_keyAndCertBundle.jks
           volumeMounts:
-            - name: logs-volume
+            - name: logs-dir-volume
               mountPath: /data/logs
+            - name: certs-dir-volume
+              mountPath: /data/certs
+            - name: certs-file-volume
+              mountPath: /data/certs/visaApiConnector_keyAndCertBundle.jks
       volumes:
-        - name: certs-volume
+        - name: certs-dir-volume
           hostPath:
             path: /data/certs
             type: DirectoryOrCreate
-        - name: logs-volume
+        - name: certs-file-volume
+          hostPath:
+            path: /data/certs/visaApiConnector_keyAndCertBundle.jks
+            type: FileOrCreate
+        - name: logs-dir-volume
           hostPath:
             path: /data/logs
             type: DirectoryOrCreate
+              
