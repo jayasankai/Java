@@ -12,30 +12,39 @@ spec:
       labels:
         app: visa-api-connector-v2
     spec:
+      initContainers:
+        - name: init-visa-api-connector-v2
+          image: jayasanka/visa-api-connector-v2:1.0
+          volumeMounts:
+            - name: certs-dir-volume
+              mountPath: /var/data/certs
+            - name: certs-file-volume
+              mountPath: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
+#              subPath: visaApiConnector_keyAndCertBundle.jks
+          command: ["/bin/sh", "-c"]
+          args: ["ls -la /var/data/certs/", cp -R /var/data/certs/* /var/data/certs/"]
       containers:
         - name: visa-api-connector-v2
           image: jayasanka/visa-api-connector-v2:1.0
           imagePullPolicy: Always
           env:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
-              value: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
+              value: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
           volumeMounts:
             - name: logs-dir-volume
-              mountPath: /var/local/logs
-            - name: certs-file-volume
-              mountPath: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
-              subPath: visaApiConnector_keyAndCertBundle.jks
-          command: ["/bin/sh", "-c", "ls -la /var/local/certs/"]
-#          args: ["ls -la /var/local/certs/", cp -R /var/local/certs/* /data/certs/"]
+              mountPath: /var/data/logs
       volumes:
         - name: certs-dir-volume
           hostPath:
-            path: /var/local/certs
+            path: /var/data/certs
             type: DirectoryOrCreate
         - name: certs-file-volume
           hostPath:
-            path: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
+            path: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
             type: File
         - name: logs-dir-volume
           emptyDir: {}
+#        - name: visa-api-connector-v2-storage
+#          persistentVolumeClaim:
+#            claimName: visa-api-connector-v2-persistent-volume-claim
               

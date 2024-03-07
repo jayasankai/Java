@@ -1,16 +1,15 @@
 version: "3.8"
-
 services:
   rest-api-service:
     build: .
     image: jayasanka/visa.api.connector-v2:2.0
     environment:
-      SPRING_VISA_CLIENT_SSL_TRUST_STORE: /var/local/certs/visaApiConnector_keyAndCertBundle.jks
+      SPRING_VISA_CLIENT_SSL_TRUST_STORE: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
     ports:
       - 8085:8085
     volumes:
-      - certs:/var/local/certs
-      - logs:/var/local/logs
+      - certs:/var/data/certs
+      - logs:/var/data/logs
 volumes:
   certs:
   logs:

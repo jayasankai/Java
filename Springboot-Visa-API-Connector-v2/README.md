@@ -38,15 +38,26 @@ commands:
 - docker push jayasanka/visa-api-connector-v2:1.0
 - docker-compose up
 
-### Kubernetes with minikube
+### minikube
 commands:
 - minikube status
 - minikube start
 - minikube dashboard
-- kubectl apply -f service.yaml -f deployment.yaml 
+- minikube ssh
+- minikube stop
+- minikube mount /Users/jayasanka/Projects/Java/Springboot-Visa-API-Connector-v2/src/main/resources/certs:/var/data/certs
+
+### Kubernetes with minikube
+commands:
+- kubectl apply -f credentials.yml -f persistent-volume.yaml -f persistent-volume-claim.yaml -f service.yaml -f deployment.yaml
+- kubectl delete -f credentials.yml -f persistent-volume.yaml -f persistent-volume-claim.yaml -f service.yaml -f deployment.yaml
+- kubectl apply -f service.yaml -f deployment.yaml
 - kubectl delete -f service.yaml -f deployment.yaml 
 - kubectl describe pod {POD Name}
 - kubectl logs -p {POD Name}
+
+### SCP file
+- scp ./src/main/resources/certs/visaApiConnector_keyAndCertBundle.jks docker@minikube:/var/data/certs
 	
 ### Note: 20240224
 Client Application was able get the "helloworld" response from API after re-generating new set of keys in new API project.<br>
