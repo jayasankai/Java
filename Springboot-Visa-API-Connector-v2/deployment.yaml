@@ -18,8 +18,8 @@ spec:
           volumeMounts:
             - name: certs-dir-volume
               mountPath: /var/data/certs
-            - name: certs-file-volume
-              mountPath: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
+#            - name: certs-file-volume
+#              mountPath: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
 #              subPath: visaApiConnector_keyAndCertBundle.jks
           command: ["/bin/sh", "-c"]
           args: ["ls -la /var/data/certs/", cp -R /var/data/certs/* /var/data/certs/"]
@@ -31,6 +31,8 @@ spec:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
               value: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
           volumeMounts:
+            - name: certs-dir-volume
+              mountPath: /var/data/certs
             - name: logs-dir-volume
               mountPath: /var/data/logs
       volumes:
@@ -38,10 +40,10 @@ spec:
           hostPath:
             path: /var/data/certs
             type: DirectoryOrCreate
-        - name: certs-file-volume
-          hostPath:
-            path: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
-            type: File
+#        - name: certs-file-volume
+#          hostPath:
+#            path: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
+#            type: File
         - name: logs-dir-volume
           emptyDir: {}
 #        - name: visa-api-connector-v2-storage

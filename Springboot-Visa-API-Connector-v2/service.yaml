@@ -5,8 +5,13 @@ metadata:
 spec:
   selector:
     app: visa-api-connector-v2
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8085
       targetPort: 8085
+  clusterIP: 10.96.10.20
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.0.2.127
