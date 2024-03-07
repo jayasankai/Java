@@ -39,28 +39,32 @@ commands:
 - docker-compose up
 
 ### minikube
-commands:
+main commands:
 - minikube status
 - minikube start
 - minikube dashboard
 - minikube ssh
 - minikube stop
 
-Share/copy certificate store to minikube host
+Share/copy certificate store to minikube host:
 - minikube mount /Users/jayasanka/Projects/Java/Springboot-Visa-API-Connector-v2/src/main/resources/certs:/var/data/certs
 - minikube cp /Users/jayasanka/Projects/Java/Springboot-Visa-API-Connector-v2/src/main/resources/certs/visaApiConnector_keyAndCertBundle.jks /var/data/certs/visaApiConnector_keyAndCertBundle.jks
+
+Change mod of the file:
+- minikube ssh
+- sudo chmod 666 visaApiConnector_keyAndCertBundle.jks
 
 Expose as service (final step):
 - minikube service visa-api-connector-v2-service
 
 ### Kubernetes with minikube
 commands:
-- kubectl apply -f credentials.yml -f persistent-volume.yaml -f persistent-volume-claim.yaml -f service.yaml -f deployment.yaml
-- kubectl delete -f credentials.yml -f persistent-volume.yaml -f persistent-volume-claim.yaml -f service.yaml -f deployment.yaml
 - kubectl apply -f service.yaml -f deployment.yaml
 - kubectl delete -f service.yaml -f deployment.yaml 
 - kubectl describe pod {POD Name}
 - kubectl logs -p {POD Name}
+- kubectl get services
+- kubectl describe services visa-api-connector-v2-service
 	
 ### Note: 20240224
 Client Application was able get the "helloworld" response from API after re-generating new set of keys in new API project.<br>
