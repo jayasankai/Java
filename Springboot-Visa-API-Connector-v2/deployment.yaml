@@ -30,6 +30,31 @@ spec:
           env:
             - name: SPRING_VISA_CLIENT_SSL_TRUST_STORE
               value: /var/data/certs/visaApiConnector_keyAndCertBundle.jks
+            - name: SERVER_SSL_KEY_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: visa-api-connector-v2-credentials
+                  key: server.ssl.key-store-password
+            - name: VISA_CLIENT_SSL_TRUST_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: visa-api-connector-v2-credentials
+                  key: visa.client.ssl.trust-store-password
+            - name: VISA_CLIENT_SSL_PRIVATE_KEY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: visa-api-connector-v2-credentials
+                  key: visa.client.ssl.private-key-password
+            - name: VISA_CLIENT_SSL_USER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: visa-api-connector-v2-credentials
+                  key: visa.client.ssl.user-id
+            - name: VISA_CLIENT_SSL_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: visa-api-connector-v2-credentials
+                  key: visa.client.ssl.user-password
           volumeMounts:
             - name: certs-dir-volume
               mountPath: /var/data/certs

@@ -61,6 +61,8 @@ Expose as service (final step):
 commands:
 - kubectl apply -f service.yaml -f deployment.yaml
 - kubectl delete -f service.yaml -f deployment.yaml 
+- kubectl apply -f credentials.yml -f service.yaml -f deployment.yaml
+- kubectl delete -f credentials.yml -f service.yaml -f deployment.yaml 
 - kubectl describe pod {POD Name}
 - kubectl logs -p {POD Name}
 - kubectl get services
