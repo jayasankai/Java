@@ -63,6 +63,9 @@ public class ThreeSum {
 
         }
 
+        //To optimize memory
+        System.gc();
+        
         return result;
     }
 
